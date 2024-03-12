@@ -11,14 +11,14 @@ from .forms import CommentForm
 class PostList(generic.ListView):
     """
     Returns all published posts in :model:`blog.Post`
-    and displays them in a page of six posts. 
+    and displays them in a page of six posts.
     **Context**
 
     ``queryset``
         All published instances of :model:`blog.Post`
     ``paginate_by``
         Number of posts per page.
-        
+
     **Template:**
 
     :template:`blog/index.html`
@@ -26,6 +26,7 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1)
     template_name = "blog/index.html"
     paginate_by = 6
+
 
 def post_detail(request, slug):
     """
@@ -70,12 +71,11 @@ def post_detail(request, slug):
         request,
         "blog/post_detail.html",
         {"post": post,
-        "comments": comments,
-        "comment_count": comment_count,
-        "comment_form": comment_form,
-        },
-        
+            "comments": comments,
+            "comment_count": comment_count,
+            "comment_form": comment_form, },
     )
+
 
 def comment_edit(request, slug, comment_id):
     """
@@ -108,6 +108,7 @@ def comment_edit(request, slug, comment_id):
                                  'Error updating comment!')
 
     return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
 
 def comment_delete(request, slug, comment_id):
     """
